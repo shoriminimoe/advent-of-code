@@ -1,4 +1,7 @@
 from collections import Counter
+import math
+import operator
+from functools import reduce
 
 
 def get_counter(counts):
@@ -41,6 +44,16 @@ def process_games(input):
     print(sum)
 
 
+def minimum_set(input):
+    sum = 0
+    with open(input) as fd:
+        for line in fd:
+            _, games = parse_games(line)
+            minimum_cubes = reduce(operator.or_, games)
+            sum += math.prod(cnt for _, cnt in minimum_cubes.items())
+    print(sum)
+
+
 if __name__ == "__main__":
     process_games("./input")
-    minimum_set("./example")
+    minimum_set("./input")
